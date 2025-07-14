@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Backend Market</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="dash.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="main-header"> 
+  <button id="hamburgerMenu" class="hamburger">☰</button>
+  
+  <div class="logo">Backend Market</div>
+  <span id="userGreeting" class="user-name"> 👋</span>
+
+
+  
+  <div class="header-controls">
+    <button id="cartBtn">🛒</button>
+    <button id="themeToggle">🌓</button>
+    <button id="notificationBtn">🔔</button>
+  </div>
+</header>
+
+
+  <!-- Notification -->
+<div id="notificationBox" class="notification-box hidden">
+  <h3>Notifications</h3>
+  <ul id="notificationList"></ul>
+</div>
+
+
+  <!-- Main Layout -->
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <ul>
+        <li onclick="showSubMenu('casino')"><i class="ri-gamepad-line"></i> Casino</li>
+        <li onclick="showSubMenu('sportbook')"><i class="ri-football-fill"></i> Sportsbook</li>
+        <li onclick="loadPlatform('telegram')"><i class="ri-robot-2-line"></i> Telegram Bots</li>
+        <li onclick="loadPlatform('games')"><i class="ri-game-line"></i> Games</li>
+        <li onclick="loadPlatform('web3')"><i class="ri-bit-coin-line"></i> Web3 Games</li>
+        <li onclick="loadPlatform('trading')"><i class="ri-line-chart-line"></i> Trading Bots</li>
+        <li onclick="loadPlatform('mev')"><i class="ri-cpu-line"></i> MEV Bots</li>
+        <li onclick="loadPlatform('websites')"><i class="ri-global-line"></i> Websites</li>
+        <li onclick="loadPlatform('esp')"><i class="ri-eye-line"></i> ESP Cheats</li>
+      </ul>
+    </nav>
+
+    <!-- Sub Sidebar -->
+    <aside id="subSidebar" class="sub-sidebar hidden">
+      <!-- Injected dynamically -->
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content hidden">
+      <div class="tabs">
+        <button class="tab" data-tab="tokens" onclick="switchTab('tokens')">Tokens</button>
+        <button class="tab" data-tab="apis" onclick="switchTab('apis')">APIs</button>
+        <button class="tab" data-tab="database" onclick="switchTab('database')">Database</button>
+      </div>
+
+      <div id="tabContent">
+        <!-- Injected dynamically -->
+      </div>
+    </main>
+
+    <!-- Cart Page -->
+    <section id="cartPage" class="cart-page hidden">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button onclick="document.getElementById('cartPage').classList.add('hidden')" style="float:right; background:transparent; border:none; font-size:1.2rem; cursor:pointer;">✖</button>
+
+      </div>
+
+      <div id="cartItemsContainer"></div>
+
+      <div class="cart-summary">
+        <div class="left-summary">
+          <div class="cart-total">
+            <strong>Total:</strong> <span id="cartTotal">$0</span>
+          </div>
+
+          <label for="paymentMethod">Select Crypto to Pay:</label>
+          <select id="paymentMethod" class="payment-select">
+            <option value="btc">Bitcoin (BTC)</option>
+            <option value="usdttrc20">Tether USDT (TRC20)</option>
+            <option value="usdterc20">Tether USDT (ERC20)</option>
+            <option value="usdtbep20">Tether USDT (BEP20)</option>
+            <option value="eth">Ethereum (ETH)</option>
+            <option value="ltc">Litecoin (LTC)</option>
+            <option value="trx">TRON (TRX)</option>
+          </select>
+        </div>
+
+        <div class="right-summary">
+          <button class="checkout-button" onclick="handlePayment()">Pay with Crypto</button>
+          <button class="checkout-button secondary" id="faw-checkout-btn">Pay with Card</button>
+        </div>
+      </div>
+
+
+    </section>
+  </div>
+
+  <div id="backdrop" class="backdrop"></div>
+
+  <script src="dash.js"></script>
+  
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("yy0uDWxWVc_C9zaAU"); 
+    })();
+    </script>
+
+</body>
+</html>

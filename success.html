@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Success</title></head>
+ <link rel="stylesheet" href="styles.css" />
+<body>
+  <div class="success-container">
+    <div class="success-card">
+      <div class="icon">
+        <i class="ri-checkbox-circle-line"></i>
+      </div>
+      <h1>Payment Successful!</h1>
+      <p>🎉 Thank you, your token is on the way to your email.</p>
+      <a href="dash.html" class="back-button">← Back to Dashboard</a>
+    </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+<script>
+  emailjs.init("yy0uDWxWVc_C9zaAU"); // Your public key
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const tx_ref = params.get("tx_ref");
+    if (!tx_ref) return;
+
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    const tokenAlreadySent = localStorage.getItem("tokenSent_" + tx_ref);
+
+    if (!user?.email || tokenAlreadySent) return;
+
+    const token = Array(16).fill(0).map(() =>
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".charAt(Math.floor(Math.random() * 36))
+    ).join("");
+
+    // Store the token in localStorage for user reference
+    localStorage.setItem("lastPurchasedToken", token);
+    localStorage.setItem("tokenSent_" + tx_ref, "true"); // Prevent re-sending on refresh
+
+    // Send email
+    emailjs.send("service_ko7uygk", "template_m2wdyab", {
+      fullname: user.fullname,
+      email: user.email,
+      token: token
+    }).then(() => {
+      console.log("✅ Token email sent successfully!");
+    }).catch(err => {
+      console.error("❌ Failed to send token email:", err);
+    });
+  });
+</script>
+
+    
+</body>
+</html>

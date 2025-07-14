@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Backend</title>
+  <link rel="stylesheet" href="auth.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+</head>
+<body>
+  <div class="split-layout">
+    
+    <!-- Left Side Text & Icons -->
+    <div class="left-panel">
+      <h1 class="welcome-text">Welcome to Backend Market</h1>
+      <p class="subtext">Secure access to your APIs, Tokens, and Databases</p>
+      <div class="icon-row">
+        <i class="ri-database-2-line"></i>
+        <i class="ri-key-line"></i>
+        <i class="ri-cloud-line"></i>
+        <i class="ri-terminal-window-line"></i>
+      </div>
+
+      
+
+        <div class="floating-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+        </div>
+
+    </div>
+    <div id="particles-js"></div>
+
+
+    <!-- Right Side Form -->
+    <div class="auth-container">
+      <form class="form-box login active" id="loginForm">
+        <h2>Login to Your Account</h2>
+        <input type="email" name="email" placeholder="Email" required />
+        
+        <div class="password-wrap">
+          <input type="password" name="password" placeholder="Password" id="loginPassword" required />
+          <span class="toggle-password" onclick="togglePassword('loginPassword', this)">👁</span>
+        </div>
+        
+        <button type="submit" class="auth-btn">Login</button>
+        <p class="switch-text">Don't have an account? <span onclick="switchForm('signup')">Create one</span></p>
+      </form>
+
+      <form class="form-box signup" id="signupForm">
+        <h2>Create a New Account</h2>
+        <input type="text" name="fullname" placeholder="Full Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        
+        <div class="password-wrap">
+          <input type="password" name="password" placeholder="Password" id="signupPassword" required />
+          <span class="toggle-password" onclick="togglePassword('signupPassword', this)">👁</span>
+        </div>
+        
+        <button type="submit" class="auth-btn">Sign Up</button>
+        <p class="switch-text">Already have an account? <span onclick="switchForm('login')">Login here</span></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function switchForm(form) {
+      document.getElementById("loginForm").classList.remove("active");
+      document.getElementById("signupForm").classList.remove("active");
+      document.getElementById(form + "Form").classList.add("active");
+    }
+  </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+
+
+  <script>
+  (function() {
+    emailjs.init("yy0uDWxWVc_C9zaAU"); // Your public key
+  })();
+</script>
+
+<script>
+  tsParticles.load("particles-js", {
+    background: {
+      color: "#001f3f"  // Dark blue background
+    },
+    particles: {
+      number: { value: 60 },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.5 },
+      size: { value: 2 },
+      move: { enable: true, speed: 1 },
+      line_linked: {
+        enable: true,
+        distance: 100,
+        color: "#00bfff",
+        opacity: 0.3,
+        width: 1
+      }
+    },
+    interactivity: {
+      events: {
+        onhover: { enable: true, mode: "grab" },
+        onclick: { enable: true, mode: "push" }
+      },
+      modes: {
+        grab: { distance: 140, line_linked: { opacity: 0.5 } },
+        push: { particles_nb: 4 }
+      }
+    },
+    retina_detect: true
+  });
+</script>
+
+
+
+  <script src="auth.js"></script>
+</body>
+</html>
