@@ -1,91 +1,60 @@
-.success-page, .cancel-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(to bottom, #e0f7ff, #ffffff);
-  color: #333;
-  font-family: "Segoe UI", sans-serif;
-}
-
-.confirmation-box {
-  text-align: center;
-  padding: 40px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-  max-width: 400px;
-}
-
-.confirmation-box h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
-
-.confirmation-box p {
-  margin-bottom: 15px;
-  font-size: 1.1rem;
-}
-
-.back-btn {
-  text-decoration: none;
-  background: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: bold;
-  display: inline-block;
-  transition: background 0.3s ease;
-}
-
-.back-btn:hover {
-  background: #0056b3;
-}
-body {
+/* Universal Page Layout */
+body,
+.success-page,
+.cancel-page {
   margin: 0;
+  padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
+/* Shared container */
 .success-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.success-card {
-  background: #1e2d3d;
-  padding: 40px;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  text-align: center;
-  max-width: 450px;
+  padding: 20px;
   width: 100%;
 }
 
-.icon {
+/* Success and Cancel Card */
+.success-card,
+.confirmation-box {
+  background: #1e2d3d;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  color: #fff;
+}
+
+.success-card .icon,
+.confirmation-box .icon {
   font-size: 60px;
   color: #28a745;
   margin-bottom: 20px;
 }
 
 h1 {
-  margin: 0 0 10px;
   font-size: 28px;
+  margin-bottom: 10px;
 }
 
 p {
   font-size: 16px;
-  margin-bottom: 30px;
   color: #c8d6e5;
+  margin-bottom: 30px;
 }
 
-.back-button {
+.back-button,
+.back-btn {
   display: inline-block;
   padding: 12px 20px;
   background: #28a745;
@@ -96,9 +65,25 @@ p {
   transition: background 0.3s ease;
 }
 
-.back-button:hover {
+.back-button:hover,
+.back-btn:hover {
   background: #218838;
 }
+
+/* Confirmation page background override */
+.success-page,
+.cancel-page {
+  background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+  color: #333;
+}
+
+.confirmation-box {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 600px) {
   .success-card,
   .confirmation-box {
@@ -107,7 +92,8 @@ p {
     border-radius: 10px;
   }
 
-  .icon {
+  .success-card .icon,
+  .confirmation-box .icon {
     font-size: 45px;
     margin-bottom: 15px;
   }
@@ -130,9 +116,10 @@ p {
   .success-container,
   .cancel-page,
   .success-page {
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     height: auto;
     min-height: 100vh;
-    align-items: flex-start;
   }
 }
