@@ -1435,3 +1435,25 @@ function loadNotifications() {
 
 // Call once when dashboard loads
 document.addEventListener("DOMContentLoaded", loadNotifications);
+
+const chatBtn = document.getElementById("chatSupportBtn");
+const popup = document.getElementById("supportPopup");
+
+chatBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  popup.classList.toggle("show");
+});
+
+document.addEventListener("click", function (e) {
+  if (!popup.contains(e.target) && !chatBtn.contains(e.target)) {
+    popup.classList.remove("show");
+  }
+});
+
+function contactSupport() {
+  const email = "backendmarkets@gmail.com";
+  const subject = encodeURIComponent("Support Request");
+  const body = encodeURIComponent("Hello, I need help with...");
+  window.open(`mailto:${email}?subject=${subject}&body=${body}`, "_blank");
+}
+
