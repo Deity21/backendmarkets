@@ -242,27 +242,52 @@ body.dark .plan-buy:hover {
   width: 300px;
   max-height: 400px;
   overflow-y: auto;
-  z-index: 999;
-  display: none;
+  z-index: 9999;
+  transform: scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
+
+.notification-box.show {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .notification-box h3 {
   margin-top: 0;
   font-size: 18px;
 }
+
 .notification-box ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
+
 .notification-box li {
   margin-bottom: 10px;
   padding: 10px;
   background: #2e2e2e;
   border-radius: 5px;
   font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.notification-box.hidden {
-  display: none;
+
+.notification-box li .copy-icon {
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 16px;
+  color: #66ccff;
 }
+
+.notification-box li .copy-icon:hover {
+  color: #33bbff;
+}
+
 
 /* Utility */
 .hidden {

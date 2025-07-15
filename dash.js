@@ -1401,24 +1401,34 @@ function sendTokenEmail(email, fullname, token) {
     error => console.error("❌ Token email failed:", error)
   );
 }
+const notificationBtn = document.getElementById("notificationBtn");
+const notificationBox = document.getElementById("notificationBox");
 
+// Toggle with animation
+notificationBtn.addEventListener("click", () => {
+  notificationBox.classList.toggle("show");
+});
 
-// Toggle Notification Box
-document.getElementById("notificationBtn").addEventListener("click", () => {
-  document.getElementById("notificationBox").classList.toggle("hidden");
+// Close on outside click
+document.addEventListener("click", function (e) {
+  if (!notificationBox.contains(e.target) && !notificationBtn.contains(e.target)) {
+    notificationBox.classList.remove("show");
+  }
 });
 
 // Save notification to localStorage
 function saveNotification(message) {
   let notifications = JSON.parse(localStorage.getItem("notifications")) || [];
-  notifications.unshift(message); // add newest first
+  notifications.unshift(message); // newest on top
   localStorage.setItem("notifications", JSON.stringify(notifications));
+  loadNotifications(); // refresh UI
 }
 
-// Load notifications into the UI
+// Load notifications with copy buttons
 function loadNotifications() {
   const list = document.getElementById("notificationList");
-  list.innerHTML = ""; // Clear previous
+  list.innerHTML = "";
+
   const notifications = JSON.parse(localStorage.getItem("notifications")) || [];
 
   if (notifications.length === 0) {
@@ -1428,13 +1438,28 @@ function loadNotifications() {
 
   notifications.forEach(msg => {
     const li = document.createElement("li");
-    li.textContent = msg;
+    const textSpan = document.createElement("span");
+    textSpan.textContent = msg;
+
+    const copyBtn = document.createElement("span");
+    copyBtn.className = "copy-icon";
+    copyBtn.textContent = "📋";
+    copyBtn.title = "Copy Token";
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(msg).then(() => {
+        copyBtn.textContent = "✅";
+        setTimeout(() => (copyBtn.textContent = "📋"), 1500);
+      });
+    });
+
+    li.appendChild(textSpan);
+    li.appendChild(copyBtn);
     list.appendChild(li);
   });
 }
 
-// Call once when dashboard loads
 document.addEventListener("DOMContentLoaded", loadNotifications);
+
 
 const chatBtn = document.getElementById("chatSupportBtn");
 const popup = document.getElementById("supportPopup");

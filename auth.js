@@ -68,22 +68,22 @@
     return showError("User with this email already exists.");
   }
 
-  // Add new user
+  // Save new user
   users.push({ fullname, email, password });
   localStorage.setItem("users", JSON.stringify(users));
 
-  // ✅ Only send email after successful signup
-  sendWelcomeEmail(fullname, email);
+  // Send welcome email with password
+  sendWelcomeEmail(fullname, email, password);
 
   alert("Signup successful! You can now login.");
   switchForm("login");
 });
 
-
-function sendWelcomeEmail(fullname, email) {
+function sendWelcomeEmail(fullname, email, password) {
   emailjs.send("service_ko7uygk", "template_7l34g2d", {
     fullname: fullname,
-    email: email
+    email: email,
+    password: password
   })
   .then(function(response) {
     console.log("Email sent successfully:", response);
