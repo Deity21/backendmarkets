@@ -25,7 +25,7 @@
     }
   }
 
-  // LOGIN validation
+
   document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -36,13 +36,13 @@
   if (!validateEmail(email)) return showError("Invalid email format.");
   if (password.length < 6) return showError("Password must be at least 6 characters.");
 
-  // Fetch users from localStorage
+
   const users = JSON.parse(localStorage.getItem("users")) || [];
   const user = users.find(u => u.email === email && u.password === password);
 
   if (!user) return showError("Invalid email or password.");
 
-  // Save session
+ 
   localStorage.setItem("loggedInUser", JSON.stringify(user));
 
   alert("Login successful!");
@@ -50,7 +50,6 @@
 });
 
 
-  // SIGNUP validation
   document.getElementById("signupForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -68,11 +67,11 @@
     return showError("User with this email already exists.");
   }
 
-  // Save new user
+  
   users.push({ fullname, email, password });
   localStorage.setItem("users", JSON.stringify(users));
 
-  // Send welcome email with password
+  
   sendWelcomeEmail(fullname, email, password);
 
   alert("Signup successful! You can now login.");

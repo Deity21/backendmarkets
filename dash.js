@@ -1370,7 +1370,7 @@ function handlePaystackPayment() {
         localStorage.setItem("lastPurchasedToken", token);
 
         // Save notification
-        saveNotification(`✅ Purchase Successful! Your token: ${token}`);
+        saveNotification(`✅ Purchase Successful! Your access key: ${token}`);
 
         // Send email
         sendTokenEmail(user.email, user.fullname, token);
