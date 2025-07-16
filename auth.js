@@ -6,7 +6,7 @@
   }
 
   function showError(message) {
-    alert(message);
+    showCustomAlert(message);
   }
 
   function validateEmail(email) {
@@ -45,7 +45,7 @@
  
   localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-  alert("Login successful!");
+  showCustomAlert("Login successful!");
   window.location.href = "dash.html";
 });
 
@@ -74,7 +74,7 @@
   
   sendWelcomeEmail(fullname, email, password);
 
-  alert("Signup successful! You can now login.");
+  showCustomAlert("Signup successful! You can now login.");
   switchForm("login");
 });
 
@@ -91,3 +91,17 @@ function sendWelcomeEmail(fullname, email, password) {
   });
 }
 
+function showCustomAlert(message, icon = "✅", duration = 3000) {
+  const alertBox = document.getElementById("customAlert");
+  const alertMessage = document.getElementById("alertMessage");
+  const iconDiv = alertBox.querySelector(".alert-icon");
+
+  alertMessage.textContent = message;
+  iconDiv.textContent = icon;
+
+  alertBox.classList.remove("hidden");
+
+  setTimeout(() => {
+    alertBox.classList.add("hidden");
+  }, duration);
+}

@@ -1183,7 +1183,7 @@ function addToCart(title, price) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${title} added to cart from ${platformDisplay}`);
+  showCustomAlert(`${title} added to cart from ${platformDisplay}`);
 }
 
 function capitalize(str) {
@@ -1312,12 +1312,12 @@ function handlePayment() {
       window.location.href = data.invoice_url;
     } else {
       console.error(data);
-      alert("Payment failed to initialize.");
+      showCustomAlert("Payment failed to initialize.");
     }
   })
   .catch(err => {
     console.error("Payment error:", err);
-    alert("Something went wrong while creating payment.");
+    showCustomAlert("Something went wrong while creating payment.");
   });
 }
 
@@ -1379,12 +1379,12 @@ function handlePaystackPayment() {
         window.location.href = "success.html?tx_ref=" + data.reference;
 
       } else {
-        alert("Payment failed. Try again.");
+        showCustomAlert("Payment failed. Try again.");
         window.location.href = "cancel.html";
       }
     },
     onClose: function () {
-      alert("Payment was not completed.");
+      showCustomAlert("Payment was not completed.");
     }
   });
 
@@ -1401,84 +1401,133 @@ function sendTokenEmail(email, fullname, token) {
     error => console.error("❌ Token email failed:", error)
   );
 }
-const notificationBtn = document.getElementById("notificationBtn");
-const notificationBox = document.getElementById("notificationBox");
 
-// Toggle with animation
-notificationBtn.addEventListener("click", () => {
-  notificationBox.classList.toggle("show");
-});
+document.addEventListener("DOMContentLoaded", () => {
+  // === Notification Logic ===
+  const notificationBtn = document.getElementById("notificationBtn");
+  const notificationBox = document.getElementById("notificationBox");
+  const notificationList = document.getElementById("notificationList");
 
-// Close on outside click
-document.addEventListener("click", function (e) {
-  if (!notificationBox.contains(e.target) && !notificationBtn.contains(e.target)) {
-    notificationBox.classList.remove("show");
-  }
-});
-
-// Save notification to localStorage
-function saveNotification(message) {
-  let notifications = JSON.parse(localStorage.getItem("notifications")) || [];
-  notifications.unshift(message); // newest on top
-  localStorage.setItem("notifications", JSON.stringify(notifications));
-  loadNotifications(); // refresh UI
-}
-
-// Load notifications with copy buttons
-function loadNotifications() {
-  const list = document.getElementById("notificationList");
-  list.innerHTML = "";
-
-  const notifications = JSON.parse(localStorage.getItem("notifications")) || [];
-
-  if (notifications.length === 0) {
-    list.innerHTML = "<li>No new notifications.</li>";
-    return;
-  }
-
-  notifications.forEach(msg => {
-    const li = document.createElement("li");
-    const textSpan = document.createElement("span");
-    textSpan.textContent = msg;
-
-    const copyBtn = document.createElement("span");
-    copyBtn.className = "copy-icon";
-    copyBtn.textContent = "📋";
-    copyBtn.title = "Copy Token";
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(msg).then(() => {
-        copyBtn.textContent = "✅";
-        setTimeout(() => (copyBtn.textContent = "📋"), 1500);
-      });
+  if (notificationBtn && notificationBox && notificationList) {
+    // Toggle notification box
+    notificationBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      notificationBox.classList.toggle("show");
     });
 
-    li.appendChild(textSpan);
-    li.appendChild(copyBtn);
-    list.appendChild(li);
-  });
-}
+    // Close notification box when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!notificationBox.contains(e.target) && !notificationBtn.contains(e.target)) {
+        notificationBox.classList.remove("show");
+      }
+    });
 
-document.addEventListener("DOMContentLoaded", loadNotifications);
+    // Prevent close when clicking inside
+    notificationBox.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
 
+    // Load stored notifications on page load
+    loadNotifications();
 
-const chatBtn = document.getElementById("chatSupportBtn");
-const popup = document.getElementById("supportPopup");
+    // Save new notification to localStorage
+    window.saveNotification = function (message) {
+      let notifications = JSON.parse(localStorage.getItem("notifications")) || [];
+      notifications.unshift(message);
+      localStorage.setItem("notifications", JSON.stringify(notifications));
+      loadNotifications(); // refresh display
+    };
 
-chatBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  popup.classList.toggle("show");
-});
+    // Populate notification list with copy buttons
+    function loadNotifications() {
+      notificationList.innerHTML = "";
 
-document.addEventListener("click", function (e) {
-  if (!popup.contains(e.target) && !chatBtn.contains(e.target)) {
-    popup.classList.remove("show");
+      const notifications = JSON.parse(localStorage.getItem("notifications")) || [];
+      if (notifications.length === 0) {
+        notificationList.innerHTML = "<li>No new notifications.</li>";
+        return;
+      }
+
+      notifications.forEach((msg) => {
+        const li = document.createElement("li");
+
+        const textSpan = document.createElement("span");
+        textSpan.textContent = msg;
+
+        const copyBtn = document.createElement("span");
+        copyBtn.className = "copy-icon";
+        copyBtn.textContent = "📋";
+        copyBtn.title = "Copy Token";
+        copyBtn.style.marginLeft = "8px";
+        copyBtn.style.cursor = "pointer";
+
+        copyBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(msg).then(() => {
+            copyBtn.textContent = "✅";
+            setTimeout(() => (copyBtn.textContent = "📋"), 1500);
+          });
+        });
+
+        li.appendChild(textSpan);
+        li.appendChild(copyBtn);
+        notificationList.appendChild(li);
+      });
+    }
+  } else {
+    console.warn("Notification elements not found.");
+  }
+
+  // === Chat Support Logic ===
+  const chatBtn = document.getElementById("chatSupport");
+  const popup = document.getElementById("supportPopup");
+
+  if (chatBtn && popup) {
+    // Toggle popup on button click
+    chatBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent immediate close
+      popup.classList.toggle("show");
+    });
+
+    // Auto-close when clicking outside
+    document.addEventListener("click", (e) => {
+      const isClickInsidePopup = popup.contains(e.target);
+      const isClickOnButton = chatBtn.contains(e.target);
+
+      if (!isClickInsidePopup && !isClickOnButton) {
+        popup.classList.remove("show");
+      }
+    });
+
+    // Prevent popup from closing when clicking inside
+    popup.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+  } else {
+    console.warn("Chat support elements not found.");
   }
 });
 
-function contactSupport() {
-  const email = "backendmarkets@gmail.com";
-  const subject = encodeURIComponent("Support Request");
-  const body = encodeURIComponent("Hello, I need help with...");
-  window.open(`mailto:${email}?subject=${subject}&body=${body}`, "_blank");
+
+  function contactSupport() {
+    const email = "backendmarkets@gmail.com";
+    const subject = encodeURIComponent("Support Request");
+    const body = encodeURIComponent("Hello, I need help with...");
+    window.open(`mailto:${email}?subject=${subject}&body=${body}`, "_blank");
+  }
+
+function showCustomAlert(message, icon = "✅", duration = 3000) {
+  const alertBox = document.getElementById("customAlert");
+  const alertMessage = document.getElementById("alertMessage");
+  const iconDiv = alertBox.querySelector(".alert-icon");
+
+  alertMessage.textContent = message;
+  iconDiv.textContent = icon;
+
+  alertBox.classList.remove("hidden");
+
+  setTimeout(() => {
+    alertBox.classList.add("hidden");
+  }, duration);
 }
+
 

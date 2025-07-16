@@ -242,7 +242,7 @@ body.dark .plan-buy:hover {
   width: 300px;
   max-height: 400px;
   overflow-y: auto;
-  z-index: 9999;
+  z-index: 1002;
   transform: scale(0.8);
   opacity: 0;
   pointer-events: none;
@@ -287,7 +287,10 @@ body.dark .plan-buy:hover {
 .notification-box li .copy-icon:hover {
   color: #33bbff;
 }
-
+body.dark .notification-box {
+  background: #1f1f1f;
+  color: #f1f1f1;
+}
 
 /* Utility */
 .hidden {
@@ -612,37 +615,12 @@ body.dark .sub-sidebar li.selected {
   padding: 14px 16px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 999;
+  z-index: 9999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   animation: bounce 2s infinite;
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  } 
-  50% {
-    transform: translateY(-10px);
-  }
-}
 
-/* Popup Box */
-/* Chat Support Button */
-.chat-support {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: #007bff;
-  color: #fff;
-  font-size: 1.8rem;
-  padding: 14px 16px;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  cursor: pointer;
-  z-index: 9999;
-  animation: bounce 1.5s infinite;
-  transition: background 0.3s ease;
-}
 
 .chat-support:hover {
   background: #0056b3;
@@ -659,7 +637,7 @@ body.dark .sub-sidebar li.selected {
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  z-index: 9998;
+  z-index: 1001;
 
   transform: scale(0.8);
   opacity: 0;
@@ -700,12 +678,11 @@ body.dark .sub-sidebar li.selected {
   background: #218838;
 }
 
-/* Bounce Animation */
 @keyframes bounce {
-  0% { transform: translateY(0); }
+  0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
 }
+
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
@@ -735,5 +712,53 @@ body.dark .sub-sidebar li.selected {
   .support-popup button {
     font-size: 0.95rem;
     padding: 10px;
+  }
+}
+
+/* Custom Alert */
+.custom-alert {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: #e0f8e9;
+  color: #155724;
+  border-left: 5px solid #28a745;
+  padding: 15px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  z-index: 2000;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  max-width: 90%;
+  width: fit-content;
+  opacity: 1;
+}
+
+.custom-alert.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) scale(0.85);
+}
+
+.custom-alert .alert-icon {
+  font-size: 1.4rem;
+}
+
+body.dark .custom-alert {
+  background: #1f2d3d;
+  color: #aaf0c5;
+  border-left-color: #28a745;
+}
+
+@media (max-width: 600px) {
+  .custom-alert {
+    bottom: 20px;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    gap: 10px;
   }
 }
