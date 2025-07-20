@@ -455,7 +455,7 @@ const pricingPlans = {
     database: {
       basic: {
         title: "Game DB - Basic",
-        price: 1090,
+        price: 290,
         features: [
           "List of all game records",
           "CSV format",
@@ -465,7 +465,7 @@ const pricingPlans = {
       },
       standard: {
         title: "Game DB - Standard",
-        price: 1790,
+        price: 790,
         features: [
           "Weekly updates",
           "Advanced structure: JSON + CSV + SQL",
