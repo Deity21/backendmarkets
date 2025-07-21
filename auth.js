@@ -46,7 +46,7 @@
   localStorage.setItem("loggedInUser", JSON.stringify(user));
 
   showCustomAlert("Login successful!");
-  window.location.href = "dash.html";
+  window.location.href = "dashboard.html";
 });
 
 

@@ -110,7 +110,7 @@
   <div id="backdrop" class="backdrop"></div>
   <div id="chatSupport" class="chat-support">
   💬
-</div>
+  </div>
 
   <div id="supportPopup" class="support-popup" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
   <h4 id="supportTitle">Need Help?</h4>
@@ -130,6 +130,7 @@
 
   <script src="dash.js"></script>
   
+  
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
   <script>
@@ -137,6 +138,97 @@
       emailjs.init("yy0uDWxWVc_C9zaAU"); 
     })();
     </script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // === Notification Logic ===
+    const notificationBtn = document.getElementById("notificationBtn");
+    const notificationBox = document.getElementById("notificationBox");
+    const notificationList = document.getElementById("notificationList");
+
+    if (notificationBtn && notificationBox && notificationList) {
+      notificationBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        notificationBox.classList.toggle("show");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!notificationBox.contains(e.target) && !notificationBtn.contains(e.target)) {
+          notificationBox.classList.remove("show");
+        }
+      });
+
+      notificationBox.addEventListener("click", (e) => e.stopPropagation());
+
+      window.saveNotification = function (message) {
+        let notifications = JSON.parse(localStorage.getItem("notifications")) || [];
+        notifications.unshift(message);
+        localStorage.setItem("notifications", JSON.stringify(notifications));
+        loadNotifications();
+      };
+
+      function loadNotifications() {
+        notificationList.innerHTML = "";
+        const notifications = JSON.parse(localStorage.getItem("notifications")) || [];
+        if (notifications.length === 0) {
+          notificationList.innerHTML = "<li>No new notifications.</li>";
+          return;
+        }
+
+        notifications.forEach((msg) => {
+          const li = document.createElement("li");
+
+          const textSpan = document.createElement("span");
+          textSpan.textContent = msg;
+
+          const copyBtn = document.createElement("span");
+          copyBtn.className = "copy-icon";
+          copyBtn.textContent = "📋";
+          copyBtn.title = "Copy Token";
+
+          copyBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(msg).then(() => {
+              copyBtn.textContent = "✅";
+              setTimeout(() => (copyBtn.textContent = "📋"), 1500);
+            });
+          });
+
+          li.appendChild(textSpan);
+          li.appendChild(copyBtn);
+          notificationList.appendChild(li);
+        });
+      }
+
+      loadNotifications();
+    }
+
+    // === Chat Support Logic ===
+    const chatBtn = document.getElementById("chatSupport");
+    const popup = document.getElementById("supportPopup");
+
+    if (chatBtn && popup) {
+      chatBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        popup.classList.toggle("show");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!popup.contains(e.target) && !chatBtn.contains(e.target)) {
+          popup.classList.remove("show");
+        }
+      });
+
+      popup.addEventListener("click", (e) => e.stopPropagation());
+    }
+  });
+
+  function contactSupport() {
+    const email = "backendmarkets@gmail.com";
+    const subject = encodeURIComponent("Support Request");
+    const body = encodeURIComponent("Hello, I need help with...");
+    window.open(`mailto:${email}?subject=${subject}&body=${body}`, "_blank");
+  }
+</script>
 
 </body>
 </html>
