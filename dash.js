@@ -849,12 +849,14 @@ const pricingPlans = {
     },
     apis: {
       basic: {
-        title: "Website API - Basic",
+        title: "Website/App API - Basic",
         price: 590,
         features: [
           "5,000 calls/month",
           "Basic metrics endpoint (visits, time)",
           "Simple JSON responses",
+          "Phone Toll service integration",
+          "Voice and text prompt integration",
           "Email support"
         ]
       },
