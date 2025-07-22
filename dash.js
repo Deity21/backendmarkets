@@ -868,6 +868,8 @@ const pricingPlans = {
           "Uptime tracking + health check",
           "Priority support",
           "Custom domain API keys",
+          "Phone Toll service integration",
+          "Voice and text prompt integration",
           "Webhook event support"
         ]
       },
@@ -879,6 +881,8 @@ const pricingPlans = {
           "Real-time analytics + logs",
           "Custom integration support",
           "Live chat + onboarding dev team",
+          "Phone Toll service integration",
+          "Voice and text prompt integration",
           "API playground included"
         ]
       }
