@@ -850,7 +850,7 @@ const pricingPlans = {
     apis: {
       basic: {
         title: "Website/App API - Basic",
-        price: 390,
+        price: 290,
         features: [
           "5,000 calls/month",
           "Basic metrics endpoint (visits, time)",
