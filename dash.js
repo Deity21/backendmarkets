@@ -455,7 +455,7 @@ const pricingPlans = {
     database: {
       basic: {
         title: "Game DB - Basic",
-        price: 290,
+        price: 100,
         features: [
           "List of all game records",
           "CSV format",
