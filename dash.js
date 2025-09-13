@@ -810,6 +810,7 @@ const pricingPlans = {
       }
     }
   },
+  
   websites: {
     tokens: {
       basic: {
@@ -1027,7 +1028,116 @@ const pricingPlans = {
 
   }
 };
+// Put this anywhere after pricingPlans is declared
+pricingPlans.cricket = {
+  apis: {
+    basic: {
+      title: "Cricket API – Basic",
+      price: 439,            // USD / year
+      billing: "yearly",
+      endpoints: ["live","upcoming","countries","pastmatches"],
+      features: [
+        "JSON REST API",
+        "Global coverage: Intl + major leagues (summary only)",
+        "Latency: ~15–60s",
+        "No odds / no standings",
+        "No player or team profiles",
+        "Polling only (no webhooks)",
+        "Sandbox + 1 production API key",
+        "Email support (48–72h SLA)"
+      ],
+      deliverables: [
+        "OpenAPI (Swagger) spec",
+        "Postman collection",
+        "Quick-start samples (JS/Python)",
+        "Environment & rate-limit guides"
+      ],
+      rate_limit: { monthly_calls: 10000, burst_rps: 2 },
+      add_ons: [
+        { name: "Extra Calls +10k/mo", price: 79, unit: "USD/year" },
+        { name: "Geo Filter Pack (country/series allowlist)", price: 49, unit: "USD/year" }
+      ]
+    },
 
+    standard: {
+      title: "Cricket API – Standard",
+      price: 1099,
+      billing: "yearly",
+      endpoints: [
+        "live","upcoming","countries","pastmatches",
+        "fixtures","leagues","series","seasons",
+        "teams","players","venues",
+        "scorecards","standings","odds","h2h","bookmakers"
+      ],
+      features: [
+        "JSON REST API + basic Webhooks (match status, innings events)",
+        "Expanded global coverage (Intl + T20 leagues + domestic top tiers)",
+        "Latency: ~5–15s on live scores",
+        "Team & player profiles (caps, role, batting/bowling style)",
+        "Umpires/referees/venues metadata",
+        "Odds snapshots (pre-match & key live markets)",
+        "Basic commentary feed (over summaries)",
+        "Priority email support (24–48h SLA)"
+      ],
+      deliverables: [
+        "OpenAPI spec + Postman",
+        "SDK stubs (Node/Python) with pagination & retries",
+        "Sample data models (Teams/Players/Standings)",
+        "Odds market & mapping guide",
+        "Webhook integration guide"
+      ],
+      rate_limit: { monthly_calls: 100000, burst_rps: 5 },
+      add_ons: [
+        { name: "Ball-by-Ball Feed", price: 249, unit: "USD/year" },
+        { name: "Advanced Commentary (ball text, wagon/Manhattan values)", price: 149, unit: "USD/year" },
+        { name: "Historical Archive (5+ years fixtures/results)", price: 199, unit: "USD/year" },
+        { name: "Odds Depth (more bookmakers + market breadth)", price: 179, unit: "USD/year" },
+        { name: "Webhook Retries + Signature Validation", price: 59, unit: "USD/year" }
+      ]
+    },
+
+    premium: {
+      title: "Cricket API – Premium",
+      price: 1790,
+      billing: "yearly",
+      endpoints: [
+        "live","upcoming","countries","pastmatches",
+        "fixtures","leagues","series","seasons",
+        "teams","players","venues","officials",
+        "scorecards","standings","odds","bookmakers",
+        "lineups","squads","injuries/availability",
+        "ballbyball","commentary","winprobability","fantasy_points",
+        "h2h","form_lastN"
+      ],
+      features: [
+        "REST + Webhooks + (optional) WebSocket streams",
+        "Near real-time latency (~1–5s) on live scores",
+        "Full ball-by-ball + rich commentary & wagon/Manhattan values",
+        "Deep player metrics (strike rate by phase, economy by over type)",
+        "Comprehensive odds: pre-match & in-play with line movements",
+        "Automated retry/backoff + idempotency keys",
+        "SLA: 99.9% monthly uptime target",
+        "24/7 chat support"
+      ],
+      deliverables: [
+        "Enterprise integration pack (OpenAPI, Postman, SDKs)",
+        "Reference dashboards (live scoreboard, standings, odds tape)",
+        "Data quality & reconciliation playbook",
+        "Webhook signing + example middlewares",
+        "Scaling & caching best practices"
+      ],
+      rate_limit: { monthly_calls: "unmetered* (fair use)", burst_rps: 15 },
+      notes: ["*Fair use applies; sustained extremely high throughput may require a traffic plan."],
+      add_ons: [
+        { name: "Dedicated WebSocket Stream (tenant shard)", price: 299, unit: "USD/year", included: false },
+        { name: "5+ Year Historical + Ball-by-Ball Archive", price: 0, unit: "USD/year", included: true },
+        { name: "Custom Market Mapping (bookmaker-specific)", price: 0, unit: "USD/year", included: true },
+        { name: "White-Label Widgets (scoreboard, standings, fixtures)", price: 0, unit: "USD/year", included: true },
+        { name: "Dedicated IP + Allowlisting", price: 0, unit: "USD/year", included: true }
+      ]
+    }
+  }
+};
 
 
 
@@ -1080,14 +1190,10 @@ function loadPlatform(fullPath, event) {
   document.querySelector(".main-content").classList.remove("hidden");
   document.getElementById("cartPage").classList.add("hidden");
 
-  document.querySelectorAll('.sidebar li, .sub-sidebar li').forEach(li => li.classList.remove('selected'));
-  if (event?.target) event.target.classList.add('selected');
+  document.querySelectorAll('.sidebar li, #subSidebar li').forEach(li => li.classList.remove('selected'));
+  event?.target?.classList?.add('selected');
 
-  if (fullPath.includes('-')) {
-    currentPlatform = fullPath.split('-')[0];
-  } else {
-    currentPlatform = fullPath;
-  }
+  currentPlatform = fullPath.includes('-') ? fullPath.split('-')[0] : fullPath;
 
   // Close sub-sidebar on mobile
   if (window.innerWidth <= 768) {
@@ -1095,11 +1201,21 @@ function loadPlatform(fullPath, event) {
     if (typeof backdrop !== 'undefined') backdrop.classList.remove("show");
   }
 
-  const tabs = document.querySelectorAll(".tab");
-  tabs.forEach(tab => tab.classList.remove("active"));
-  document.querySelector(`.tab[data-tab="tokens"]`)?.classList.add("active");
+  // Determine default tab from what's available for this platform
+  const platformObj = pricingPlans[currentPlatform] || {};
+  const availableTabs = Object.keys(platformObj);
+  const defaultTab = availableTabs.includes('tokens') ? 'tokens'
+                   : availableTabs.includes('apis')   ? 'apis'
+                   : availableTabs[0] || 'tokens';
 
-  switchTab("tokens");
+  // Activate only the default tab and hide tabs that don't exist
+  document.querySelectorAll(".tab").forEach(t => {
+    const name = t.dataset.tab;
+    t.classList.toggle("active", name === defaultTab);
+    t.style.display = platformObj[name] ? "" : "none";
+  });
+
+  switchTab(defaultTab);
 }
 
 
@@ -1120,19 +1236,45 @@ function switchTab(tab) {
   }
 
   for (const key in plans) {
-    const plan = plans[key];
-    const card = document.createElement("div");
-    card.className = "plan-card";
-    card.innerHTML = `
-      <h3 class="plan-title">${plan.title}</h3>
-      <div class="plan-price">$${plan.price}</div>
-      <ul class="plan-features">
-        ${plan.features.map(f => `<li>✅ ${f}</li>`).join("")}
-      </ul>
-      <button class="plan-buy" onclick="addToCart('${plan.title}', '${plan.price}')">Add to Cart</button>
-    `;
-    content.appendChild(card);
-  }
+  const plan = plans[key];
+  const endpoints = plan.endpoints?.length
+    ? `<div class="plan-section"><h4>Endpoints</h4><ul>${plan.endpoints.map(e => `<li>• ${e}</li>`).join("")}</ul></div>` : "";
+
+  const deliverables = plan.deliverables?.length
+    ? `<div class="plan-section"><h4>Deliverables</h4><ul>${plan.deliverables.map(d => `<li>📦 ${d}</li>`).join("")}</ul></div>` : "";
+
+  const rate = plan.rate_limit
+    ? `<div class="plan-section"><h4>Rate Limit</h4>
+         <p>${typeof plan.rate_limit.monthly_calls === "number" ? plan.rate_limit.monthly_calls.toLocaleString() : plan.rate_limit.monthly_calls} / mo
+         ${plan.rate_limit.burst_rps ? ` • Burst: ${plan.rate_limit.burst_rps} rps` : ""}</p>
+       </div>` : "";
+
+  const addons = plan.add_ons?.length
+    ? `<div class="plan-section"><h4>Add-ons</h4><ul>${
+        plan.add_ons.map(a => `<li>${a.included ? "✅" : "➕"} ${a.name}${a.price !== 0 ? ` — $${a.price} ${a.unit || ""}` : " (included)"}</li>`).join("")
+      }</ul></div>` : "";
+
+  const notes = plan.notes?.length
+    ? `<div class="plan-notes">${plan.notes.map(n => `<small>${n}</small>`).join("<br>")}</div>` : "";
+
+  const card = document.createElement("div");
+  card.className = "plan-card";
+  card.innerHTML = `
+    <h3 class="plan-title">${plan.title}</h3>
+    <div class="plan-price">$${plan.price}</div>
+    <ul class="plan-features">
+      ${plan.features.map(f => `<li>✅ ${f}</li>`).join("")}
+    </ul>
+    ${endpoints}
+    ${deliverables}
+    ${rate}
+    ${addons}
+    ${notes}
+    <button class="plan-buy" onclick="addToCart('${plan.title}', '${plan.price}')">Add to Cart</button>
+  `;
+  content.appendChild(card);
+}
+
 }
 
 
