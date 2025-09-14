@@ -1835,25 +1835,25 @@ if (logoutBtn) {
     window.location.href = "index.html";
   });
 }
-function handlePayment() {
+
+async function handlePayment() {
   const selectedCurrency = document.getElementById("paymentMethod").value;
+  if (!selectedCurrency) return alert("Please select a crypto payment method.");
 
-  if (!selectedCurrency) {
-    alert("Please select a crypto payment method.");
-    return;
-  }
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
-  if (!user || !user.email) return alert("Please login to continue.");
+  if (!user?.email) return alert("Please login to continue.");
 
-  const amount = calculateCartTotal(); 
+  const amount = Number(calculateCartTotal().toFixed(2));
+  if (!amount || amount <= 0) return alert("Your cart is empty.");
 
-  fetch("https://api.nowpayments.io/v1/invoice", {
-    method: "POST",
-    headers: {
-      "x-api-key": "VGT1EV6-SENM61Q-H53RP45-GSE6RRD", // ← replace with real key
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
+  try {
+    const res = await fetch("https://api.nowpayments.io/v1/invoice", {
+      method: "POST",
+      headers: {
+        "x-api-key": "VGT1EV6-SENM61Q-H53RP45-GSE6RRD",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
       price_amount: amount,
       price_currency: "usd",
       pay_currency: selectedCurrency,
@@ -1864,20 +1864,24 @@ function handlePayment() {
       cancel_url: "http://localhost:5500/cancel.html"
     })
   })
-  .then(res => res.json())
-  .then(data => {
+    const data = await res.json();
+    if (!res.ok) {
+      console.error("NOWPayments error:", data);
+      return showCustomAlert(data.message || "Payment failed to initialize.");
+    }
+
     if (data.invoice_url) {
       window.location.href = data.invoice_url;
     } else {
-      console.error(data);
-      showCustomAlert("Payment failed to initialize.");
+      console.error("NOWPayments response (no invoice_url):", data);
+      showCustomAlert(data.message || "Payment failed to initialize.");
     }
-  })
-  .catch(err => {
+  } catch (err) {
     console.error("Payment error:", err);
     showCustomAlert("Something went wrong while creating payment.");
-  });
+  }
 }
+
 
 // Util: Token Generator
 function generateToken() {
