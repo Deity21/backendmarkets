@@ -1138,7 +1138,296 @@ pricingPlans.cricket = {
     }
   }
 };
+// NEW: Compliance (Gambling License + Anti-Cheat Certificates)
+if (!pricingPlans.casino) pricingPlans.casino = {};
+pricingPlans.casino.compliance = {
+  basic: {
+    title: "Gambling License & Anti-Cheat – Basic",
+    price: 3490,
+    billing: "Lifetime",
+    scope: "Foundational compliance pack + essential fraud/anti-cheat rules.",
+    license: {
+      coverage: [
+        "Pre-licensing checklist & readiness assessment",
+        "Policy pack templates: KYC/AML, Responsible Gambling, T&Cs, Privacy, Cookies, Bonus terms",
+        "Application dossier skeleton + document list",
+        "Vendor due-diligence & UBO/KYB checklist",
+        "High-level guidance for umbrella/aggregator arrangements"
+      ],
+      advantages: [
+        "Faster kick-off with regulator-friendly templates",
+        "Reduces common rejection causes (missing policies, unclear flows)",
+        "Clear roadmap for moving from MVP to licensable state"
+      ]
+    },
+    anti_cheat: {
+      protections: [
+        "Velocity limits (bets, withdrawals, bonuses)",
+        "Geo/IP allow/deny (basic proxy/TOR list)",
+        "Email/phone domain blacklists",
+        "Duplicate account heuristics (name/email/phone overlap)",
+        "RTP/RNG baseline test checklist (pre-lab)"
+      ],
+      certificates: [
+        "Self-issued Anti-Cheat Configuration Certificate (PDF/JSON)",
+        "Weekly rules audit report (CSV/JSON) with timestamps"
+      ]
+    },
+    deliverables: [
+      "Compliance policy templates (editable docs)",
+      "Fraud rules JSON pack (10 starter rules)",
+      "Webhook examples (alerts) + integration guide",
+      "Incident log template + evidence collection checklist"
+    ],
+    rate_limit: { anti_cheat_events_monthly: 50000, burst_rps: 3 },
+    support: "Email (72h SLA) + 2h compliance Q&A onboarding",
+    add_ons: [
+      { name: "Extra anti-cheat events +100k/mo", price: 129, unit: "USD/year" },
+      { name: "Additional consulting (per 5h)", price: 299, unit: "USD" }
+    ]
+  },
 
+  standard: {
+    title: "Gambling License & Anti-Cheat – Standard",
+    price: 5290,
+    billing: "lifetime",
+    scope: "Hands-on dossier prep + advanced fraud stack and attestations.",
+    license: {
+      coverage: [
+        "Dossier preparation & regulator Q&A support (1–2 jurisdictions)",
+        "Customized AML/CFT program (risk-based) + SAR workflow",
+        "Staff training deck (RG/AML) + knowledge check",
+        "Partner lab pre-test guidance for RNG/RTP",
+        "Affiliate compliance pack (affiliate Ts&Cs, UTM/KYC guidance)"
+      ],
+      advantages: [
+        "Higher approval readiness with jurisdiction-specific shaping",
+        "Reduces back-and-forth from regulators with solid evidence",
+        "Sharpened AML program lowers banking/processor friction"
+      ]
+    },
+    anti_cheat: {
+      protections: [
+        "Device fingerprinting + proxy/VPN/TOR reputation",
+        "Behavioral anomalies (bonus abuse, arbitrage, bot-like patterns)",
+        "Collusion graphs for table games & PvP",
+        "Chargeback risk signals (BIN, velocity, history)",
+        "Auto actions (limit, lock, step-up KYC) with review queue"
+      ],
+      certificates: [
+        "Anti-Cheat Assurance Certificate (per major release)",
+        "Monthly Fraud & Integrity Report (PDF/CSV)",
+        "Signed webhook payloads + replay protection"
+      ]
+    },
+    deliverables: [
+      "SDK snippets (Node/Python) for fingerprint + webhooks",
+      "Fraud rules JSON pack (30 rules) + dashboards",
+      "Regulator response templates & evidence binder outline",
+      "Data retention plan (90-day logs) + export scripts"
+    ],
+    rate_limit: { anti_cheat_events_monthly: 500000, burst_rps: 8 },
+    support: "Priority email (24–48h) + 10h compliance/fraud consulting",
+    add_ons: [
+      { name: "Jurisdiction expansion (add 1)", price: 690, unit: "USD" },
+      { name: "Odds feed integrity checks (market drift/latency)", price: 249, unit: "USD/year" },
+      { name: "Webhook retry + signature rotation kit", price: 99, unit: "USD/year" },
+      { name: "Historical case ingestion (CSV/JSON up to 1M rows)", price: 390, unit: "USD" }
+    ]
+  },
+
+  premium: {
+    title: "Gambling License & Anti-Cheat – Premium",
+    price: 8990,
+    billing: "lifetime",
+    scope: "End-to-end license project management + real-time anti-cheat.",
+    license: {
+      coverage: [
+        "Project-managed license journey (multi-jurisdiction strategy)",
+        "Liaison with counsel, auditors, PSPs, banks, and labs",
+        "RNG/fairness lab coordination & remediation tracking",
+        "Operational playbooks: incident response, dispute/chargeback, RG escalations",
+        "Board-level risk register + KPI/KRI dashboard"
+      ],
+      advantages: [
+        "Shortest path to live in complex regimes via program management",
+        "Improves PSP/bank acceptance with robust controls",
+        "Easier renewals due to audit-ready documentation"
+      ]
+    },
+    anti_cheat: {
+      protections: [
+        "Real-time scoring (WebSocket/stream) with adaptive limits",
+        "Cross-brand device & identity graph (multi-tenant)",
+        "Liveness/biometrics integration hooks (optional)",
+        "Tamper-evident logs (hash-chain) + evidence notarization option",
+        "SIEM integration (syslog/HTTP) + SOC alerting"
+      ],
+      certificates: [
+        "Public Anti-Cheat Verification Endpoint + badge",
+        "Per-release Attestation (PDF + JSON) with build metadata",
+        "Quarterly Integrity Review (exec report) + pen-test summary"
+      ]
+    },
+    deliverables: [
+      "Enterprise dashboards (fraud KPIs, RG flags, chargeback heatmap)",
+      "Rules & models pack (100+ rules) + A/B rules testing playbook",
+      "1-year log retention with export tooling (S3/Blob/BigQuery ready)",
+      "Integration with incident mgmt (Jira/Linear) + runbooks"
+    ],
+    rate_limit: { anti_cheat_events_monthly: "unmetered* (fair use)", burst_rps: 20 },
+    support: "24/7 channel + dedicated compliance manager (20h/mo) • SLA 99.9%",
+    notes: ["*Fair use applies; extreme spikes may require a traffic plan."],
+    add_ons: [
+      { name: "Quarterly external pen-test (summary report)", price: 1490, unit: "USD/year" },
+      { name: "RNG/Lab engagement escalation block", price: 0, unit: "USD", included: true },
+      { name: "Dedicated IP + allowlisting", price: 0, unit: "USD/year", included: true }
+    ]
+  }
+};
+
+
+
+function renderCompliance(platformKey, opts = { inline: false }) {
+  const cp = pricingPlans[platformKey]?.compliance;
+  if (!cp) {
+    if (!opts.inline) {
+      document.getElementById('tabContent').innerHTML =
+        `<p>No compliance plans available for ${platformKey.toUpperCase()}.</p>`;
+    }
+    return;
+  }
+
+  const container = document.getElementById('tabContent');
+  if (!opts.inline) {
+    container.innerHTML = '';
+    const h = document.createElement('h3');
+    h.className = 'group-title';
+    h.textContent = 'COMPLIANCE';
+    container.appendChild(h);
+  } else {
+    const h = document.createElement('h4');
+    h.className = 'group-title';
+    h.textContent = 'Compliance (Integrated)';
+    container.appendChild(h);
+  }
+
+  for (const tier in cp) {
+    const plan = cp[tier];
+    container.appendChild(buildComplianceCard(plan));
+  }
+}
+
+// Card builder for normal plans (tokens/apis/database/cricket apis etc.)
+function buildStandardPlanCard(plan) {
+  const endpoints = plan.endpoints?.length
+    ? `<div class="plan-section"><h4>Endpoints</h4><ul>${plan.endpoints.map(e => `<li>• ${e}</li>`).join('')}</ul></div>`
+    : '';
+
+  const deliverables = plan.deliverables?.length
+    ? `<div class="plan-section"><h4>Deliverables</h4><ul>${plan.deliverables.map(d => `<li>📦 ${d}</li>`).join('')}</ul></div>`
+    : '';
+
+  const rate = plan.rate_limit
+    ? `<div class="plan-section"><h4>Rate Limit</h4>
+         <p>${typeof plan.rate_limit.monthly_calls === 'number'
+             ? plan.rate_limit.monthly_calls.toLocaleString()
+             : (plan.rate_limit.monthly_calls ?? '')} / mo
+         ${plan.rate_limit.burst_rps ? ` • Burst: ${plan.rate_limit.burst_rps} rps` : ''}</p>
+       </div>`
+    : '';
+
+  const addons = plan.add_ons?.length
+    ? `<div class="plan-section"><h4>Add-ons</h4><ul>${
+        plan.add_ons.map(a =>
+          `<li>${a.included ? '✅' : '➕'} ${a.name}${
+            a.price !== 0 && a.price != null ? ` — $${a.price} ${a.unit || ''}` : ' (included)'
+          }</li>`
+        ).join('')
+      }</ul></div>`
+    : '';
+
+  const notes = plan.notes?.length
+    ? `<div class="plan-notes">${plan.notes.map(n => `<small>${n}</small>`).join('<br>')}</div>`
+    : '';
+
+  const featuresList = (plan.features?.length
+    ? plan.features.map(f => `<li>✅ ${f}</li>`).join('')
+    : '<li>✅ Includes core features</li>');
+
+  const card = document.createElement('div');
+  card.className = 'plan-card';
+  card.innerHTML = `
+    <h3 class="plan-title">${plan.title}</h3>
+    <div class="plan-price">$${plan.price}</div>
+    <ul class="plan-features">${featuresList}</ul>
+    ${endpoints}${deliverables}${rate}${addons}${notes}
+    <button class="plan-buy" onclick="addToCart('${plan.title}', '${plan.price}')">Add to Cart</button>
+  `;
+  return card;
+}
+
+// Card builder for compliance (license + anti-cheat)
+function buildComplianceCard(plan) {
+  const licenseCoverage = plan.license?.coverage?.length
+    ? `<div class="plan-section"><h4>License Coverage</h4><ul>${plan.license.coverage.map(i => `<li>📝 ${i}</li>`).join('')}</ul></div>`
+    : '';
+
+  const licenseAdvantages = plan.license?.advantages?.length
+    ? `<div class="plan-section"><h4>Advantages</h4><ul>${plan.license.advantages.map(i => `<li>✨ ${i}</li>`).join('')}</ul></div>`
+    : '';
+
+  const antiProtections = plan.anti_cheat?.protections?.length
+    ? `<div class="plan-section"><h4>Anti-Cheat Protections</h4><ul>${plan.anti_cheat.protections.map(i => `<li>🛡️ ${i}</li>`).join('')}</ul></div>`
+    : '';
+
+  const antiCerts = plan.anti_cheat?.certificates?.length
+    ? `<div class="plan-section"><h4>Certificates & Attestations</h4><ul>${plan.anti_cheat.certificates.map(i => `<li>📄 ${i}</li>`).join('')}</ul></div>`
+    : '';
+
+  const deliverables = plan.deliverables?.length
+    ? `<div class="plan-section"><h4>Deliverables</h4><ul>${plan.deliverables.map(i => `<li>📦 ${i}</li>`).join('')}</ul></div>`
+    : '';
+
+  const rate = plan.rate_limit
+    ? `<div class="plan-section"><h4>Event Throughput</h4>
+        <p>${plan.rate_limit.anti_cheat_events_monthly
+            ? `${plan.rate_limit.anti_cheat_events_monthly.toLocaleString?.() || plan.rate_limit.anti_cheat_events_monthly} events/mo`
+            : ''}${plan.rate_limit.burst_rps ? ` • Burst: ${plan.rate_limit.burst_rps} rps` : ''}</p>
+       </div>`
+    : '';
+
+  const support = plan.support
+    ? `<div class="plan-section"><h4>Support</h4><p>${plan.support}</p></div>`
+    : '';
+
+  const addons = plan.add_ons?.length
+    ? `<div class="plan-section"><h4>Add-ons</h4><ul>${
+        plan.add_ons.map(a =>
+          `<li>${a.included ? '✅' : '➕'} ${a.name}${
+            a.price !== 0 && a.price != null ? ` — $${a.price} ${a.unit || ''}` : ' (included)'
+          }</li>`
+        ).join('')
+      }</ul></div>`
+    : '';
+
+  const notes = plan.notes?.length
+    ? `<div class="plan-notes">${plan.notes.map(n => `<small>${n}</small>`).join('<br>')}</div>`
+    : '';
+
+  const card = document.createElement('div');
+  card.className = 'plan-card';
+  card.innerHTML = `
+    <h3 class="plan-title">${plan.title}</h3>
+    <div class="plan-price">$${plan.price}</div>
+    ${plan.scope ? `<p class="plan-scope">${plan.scope}</p>` : ''}
+    ${licenseCoverage}${licenseAdvantages}
+    ${antiProtections}${antiCerts}
+    ${deliverables}${rate}${support}${addons}${notes}
+    <button class="plan-buy" onclick="addToCart('${plan.title}', '${plan.price}')">Add to Cart</button>
+  `;
+  return card;
+}
 
 
 function showSubMenu(platform) {
@@ -1162,7 +1451,8 @@ function showSubMenu(platform) {
     "Baseball": "⚾",
     "Hockey": "🏒",
     "MMA": "🥋",
-    "Boxing": "🥊"
+    "Boxing": "🥊",
+    "Compliance": "🛡️"
   };
 
   const list = subMenus[platform].map(item => `
@@ -1195,39 +1485,131 @@ function loadPlatform(fullPath, event) {
 
   currentPlatform = fullPath.includes('-') ? fullPath.split('-')[0] : fullPath;
 
-  // Close sub-sidebar on mobile
   if (window.innerWidth <= 768) {
     document.getElementById("subSidebar").classList.remove("open");
     if (typeof backdrop !== 'undefined') backdrop.classList.remove("show");
   }
 
-  // Determine default tab from what's available for this platform
-  const platformObj = pricingPlans[currentPlatform] || {};
-  const availableTabs = Object.keys(platformObj);
-  const defaultTab = availableTabs.includes('tokens') ? 'tokens'
-                   : availableTabs.includes('apis')   ? 'apis'
-                   : availableTabs[0] || 'tokens';
+  // Build ONLY the two tabs for this platform
+  setupPlanTabs(currentPlatform);
 
-  // Activate only the default tab and hide tabs that don't exist
-  document.querySelectorAll(".tab").forEach(t => {
-    const name = t.dataset.tab;
-    t.classList.toggle("active", name === defaultTab);
-    t.style.display = platformObj[name] ? "" : "none";
-  });
-
-  switchTab(defaultTab);
+  // Default: Plans
+  switchTab('plans');
 }
-
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('licenseComplianceBtn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      loadPlatform('casino');
+      setTimeout(() => switchTab('compliance'), 0);
+    });
+    btn.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
+  }
+});
 
 function switchTab(tab) {
-  const tabs = document.querySelectorAll(".tab");
-  tabs.forEach(t => t.classList.remove("active"));
-  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add("active");
+  // UI: set active tab button
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  const tabBtn = document.querySelector(`.tab[data-tab="${tab}"]`);
+  if (tabBtn) tabBtn.classList.add("active");
 
   const content = document.getElementById("tabContent");
   content.innerHTML = "";
 
-  const platformKey = currentSelection.split("-")[0] || currentSelection;
+  const platformKey = (currentSelection?.split("-")[0] || currentSelection || "").trim();
+
+  // --- License & Anti-Cheat only ---
+  if (tab === "plans") {
+    // Show compliance cards inline as "Plans"
+    if (pricingPlans[platformKey]?.compliance) {
+      renderCompliance(platformKey, { inline: true });
+    } else {
+      content.innerHTML = `<p>Plans are only available in License & Anti-Cheat.</p>`;
+    }
+    return;
+  }
+
+  if (tab === "compliance") {
+    if (pricingPlans[platformKey]?.compliance) {
+      renderCompliance(platformKey, { inline: false });
+    } else {
+      content.innerHTML = `<p>No compliance plans available for ${platformKey.toUpperCase()}.</p>`;
+    }
+    return;
+  }
+
+  // --- Normal tabs (Tokens / APIs / Database) ---
+  const group = pricingPlans[platformKey]?.[tab];
+  if (!group) {
+    content.innerHTML = `<p>No pricing plans available for ${platformKey.toUpperCase()} - ${tab.toUpperCase()}.</p>`;
+    return;
+  }
+
+  for (const tier in group) {
+    const plan = group[tier];
+    // Uses your existing card builder (handles optional fields safely)
+    content.appendChild(buildStandardPlanCard(plan));
+  }
+}
+
+
+let currentMode = 'normal';
+currentPlatform = currentPlatform || '';
+currentSelection = currentSelection || '';
+
+
+const tabsWrap = document.querySelector('.tabs');
+const staticTabs = {
+  tokens: document.querySelector('.tab[data-tab="tokens"]'),
+  apis: document.querySelector('.tab[data-tab="apis"]'),
+  database: document.querySelector('.tab[data-tab="database"]'),
+};
+
+function setActiveTab(tab) {
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  const btn = tabsWrap.querySelector(`.tab[data-tab="${tab}"]`);
+  if (btn) btn.classList.add('active');
+}
+
+function resetToNormalTabs(platformKey) {
+  currentMode = 'normal';
+  // Remove any LC tabs
+  tabsWrap.querySelectorAll('.lc-only').forEach(el => el.remove());
+  // Show/hide static tabs depending on platform availability
+  const platformObj = pricingPlans[platformKey] || {};
+  ['tokens', 'apis', 'database'].forEach(name => {
+    const btn = staticTabs[name];
+    if (!btn) return;
+    btn.style.display = platformObj[name] ? '' : 'none';
+  });
+}
+
+function ensureLicenseTabs() {
+  // Hide the static tabs
+  Object.values(staticTabs).forEach(btn => { if (btn) btn.style.display = 'none'; });
+
+  // Inject Plans + Compliance once
+  if (!tabsWrap.querySelector(`.lc-only[data-tab="plans"]`)) {
+    const plansBtn = document.createElement('button');
+    plansBtn.className = 'tab lc-only';
+    plansBtn.dataset.tab = 'plans';
+    plansBtn.textContent = 'Plans';
+    plansBtn.addEventListener('click', () => switchTab('plans'));
+    tabsWrap.appendChild(plansBtn);
+
+    const compBtn = document.createElement('button');
+    compBtn.className = 'tab lc-only';
+    compBtn.dataset.tab = 'compliance';
+    compBtn.textContent = 'Compliance';
+    compBtn.addEventListener('click', () => switchTab('compliance'));
+    tabsWrap.appendChild(compBtn);
+  }
+}
+
+// Normal Tokens/APIs/Database rendering
+function renderNormalTab(platformKey, tab) {
+  const content = document.getElementById('tabContent');
+  content.innerHTML = '';
   const plans = pricingPlans[platformKey]?.[tab];
 
   if (!plans) {
@@ -1235,49 +1617,77 @@ function switchTab(tab) {
     return;
   }
 
-  for (const key in plans) {
-  const plan = plans[key];
-  const endpoints = plan.endpoints?.length
-    ? `<div class="plan-section"><h4>Endpoints</h4><ul>${plan.endpoints.map(e => `<li>• ${e}</li>`).join("")}</ul></div>` : "";
-
-  const deliverables = plan.deliverables?.length
-    ? `<div class="plan-section"><h4>Deliverables</h4><ul>${plan.deliverables.map(d => `<li>📦 ${d}</li>`).join("")}</ul></div>` : "";
-
-  const rate = plan.rate_limit
-    ? `<div class="plan-section"><h4>Rate Limit</h4>
-         <p>${typeof plan.rate_limit.monthly_calls === "number" ? plan.rate_limit.monthly_calls.toLocaleString() : plan.rate_limit.monthly_calls} / mo
-         ${plan.rate_limit.burst_rps ? ` • Burst: ${plan.rate_limit.burst_rps} rps` : ""}</p>
-       </div>` : "";
-
-  const addons = plan.add_ons?.length
-    ? `<div class="plan-section"><h4>Add-ons</h4><ul>${
-        plan.add_ons.map(a => `<li>${a.included ? "✅" : "➕"} ${a.name}${a.price !== 0 ? ` — $${a.price} ${a.unit || ""}` : " (included)"}</li>`).join("")
-      }</ul></div>` : "";
-
-  const notes = plan.notes?.length
-    ? `<div class="plan-notes">${plan.notes.map(n => `<small>${n}</small>`).join("<br>")}</div>` : "";
-
-  const card = document.createElement("div");
-  card.className = "plan-card";
-  card.innerHTML = `
-    <h3 class="plan-title">${plan.title}</h3>
-    <div class="plan-price">$${plan.price}</div>
-    <ul class="plan-features">
-      ${plan.features.map(f => `<li>✅ ${f}</li>`).join("")}
-    </ul>
-    ${endpoints}
-    ${deliverables}
-    ${rate}
-    ${addons}
-    ${notes}
-    <button class="plan-buy" onclick="addToCart('${plan.title}', '${plan.price}')">Add to Cart</button>
-  `;
-  content.appendChild(card);
+  for (const tier in plans) {
+    const p = plans[tier];
+    content.appendChild(buildStandardPlanCard(p));
+  }
 }
 
+// Enter License & Anti-Cheat view (Plans+Compliance only)
+function enterLicenseCompliance() {
+  currentMode = 'license';
+  currentSelection = 'casino';
+  currentPlatform = 'casino';
+
+  document.querySelector('.main-content').classList.remove('hidden');
+  document.getElementById('cartPage').classList.add('hidden');
+
+  ensureLicenseTabs();
+  setActiveTab('plans');
+  // Show compliance tiers in a compact "Plans" view
+  renderCompliance('casino', { inline: true });
 }
 
+// ---- Single switchTab for both modes ----
+function switchTab(tab) {
+  if (currentMode === 'license') {
+    setActiveTab(tab);
+    if (tab === 'plans') {
+      renderCompliance('casino', { inline: true });
+    } else {
+      renderCompliance('casino', { inline: false });
+    }
+    return;
+  }
+  // normal mode
+  setActiveTab(tab);
+  const platformKey = (currentSelection.split('-')[0] || currentSelection);
+  renderNormalTab(platformKey, tab);
+}
 
+// ---- Normal platform loader (rest behave as before) ----
+function loadPlatform(fullPath, event) {
+  currentMode = 'normal';
+  currentSelection = fullPath;
+
+  document.querySelector('.main-content').classList.remove('hidden');
+  document.getElementById('cartPage').classList.add('hidden');
+
+  document.querySelectorAll('.sidebar li, #subSidebar li').forEach(li => li.classList.remove('selected'));
+  event?.target?.classList?.add('selected');
+
+  const platformKey = fullPath.includes('-') ? fullPath.split('-')[0] : fullPath;
+  currentPlatform = platformKey;
+
+  resetToNormalTabs(platformKey);
+
+  const platformObj = pricingPlans[platformKey] || {};
+  const defaultTab = platformObj.tokens ? 'tokens'
+                    : platformObj.apis ? 'apis'
+                    : platformObj.database ? 'database'
+                    : 'tokens';
+
+  switchTab(defaultTab);
+}
+
+// ---- License & Anti-Cheat button wiring ----
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('licenseComplianceBtn');
+  if (btn) {
+    btn.addEventListener('click', enterLicenseCompliance);
+    btn.addEventListener('keydown', (e) => { if (e.key === 'Enter') enterLicenseCompliance(); });
+  }
+});
 
 document.getElementById("themeToggle").addEventListener("click", () => {
   document.body.classList.toggle("dark");

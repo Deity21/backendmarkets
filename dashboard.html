@@ -49,7 +49,9 @@
         <li onclick="loadPlatform('websites')"><i class="ri-global-line"></i> Websites</li>
         <li onclick="loadPlatform('esp')"><i class="ri-eye-line"></i> ESP Cheats</li>
         <li onclick="loadPlatform('cricket')"><i class="ri-cricket-ball-line"></i> Cricket API</li>
-
+        <li id="licenseComplianceBtn" role="button" tabindex="0">
+          <i class="ri-shield-check-line"></i> License & Anti-Cheat
+        </li>
       </ul>
     </nav>
 
@@ -61,10 +63,12 @@
     <!-- Main Content -->
     <main class="main-content hidden">
       <div class="tabs">
-        <button class="tab" data-tab="tokens" onclick="switchTab('tokens')">Tokens</button>
-        <button class="tab" data-tab="apis" onclick="switchTab('apis')">APIs</button>
+        <button class="tab" data-tab="tokens"   onclick="switchTab('tokens')">Tokens</button>
+        <button class="tab" data-tab="apis"     onclick="switchTab('apis')">APIs</button>
         <button class="tab" data-tab="database" onclick="switchTab('database')">Database</button>
       </div>
+
+
 
       <div id="tabContent">
         <!-- Injected dynamically -->
