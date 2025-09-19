@@ -1286,6 +1286,87 @@ pricingPlans.casino.compliance = {
   }
 };
 
+// NEW top-level platform: Sports Live Feed (lifetime)
+pricingPlans.sportslive = {
+  apis: {
+    basic: {
+      title: "Sports Live Feed – Basic",
+      price: 459,                 // one-time
+      billing: "lifetime",
+      endpoints: ["live_scores", "Hightlights", "results"],
+      features: [
+        "Lifetime license (one-time purchase)",
+        "Global coverage: top football + basketball",
+        "Latency: ~10–30s on live score ticks",
+        "JSON REST API",
+        "Basic incidents (goals/points, period changes)",
+        "Email support (72h SLA)"
+      ],
+      deliverables: [
+        "OpenAPI (Swagger) spec",
+        "Postman collection",
+        "Quick-start samples (JS/Python)"
+      ],
+      rate_limit: { monthly_calls: 50000, burst_rps: 3 },
+      notes: ["For hobby/small projects"]
+    },
+
+    standard: {
+      title: "Sports Live Feed – Standard",
+      price: 1090,                // one-time
+      billing: "lifetime",
+      endpoints: [
+        "live_scores","fixtures","results","standings",
+        "incidents","lineups","h2h"
+      ],
+      features: [
+        "Lifetime license (one-time purchase)",
+        "Coverage: football, basketball, tennis, hockey, cricket",
+        "Latency: ~5–15s on live ticks",
+        "Team & player metadata + lineups (where available)",
+        "Score/period/incident webhooks",
+        "Priority email support (24–48h SLA)"
+      ],
+      deliverables: [
+        "OpenAPI + Postman",
+        "SDK stubs (Node/Python) with retries",
+        "Webhook integration guide"
+      ],
+      rate_limit: { monthly_calls: 200000, burst_rps: 6 },
+      add_ons: [
+        { name: "Extra Calls +200k/mo", price: 149, unit: "USD/year" },
+        { name: "Geo Filter Pack", price: 49, unit: "USD/year" }
+      ]
+    },
+
+    premium: {
+      title: "Sports Live Feed – Premium",
+      price: 2990,                // one-time
+      billing: "lifetime",
+      endpoints: [
+        "live_scores","fixtures","results","standings",
+        "incidents","lineups","injuries","odds_snapshot",
+        "bookmakers","commentary_basic"
+      ],
+      features: [
+        "Lifetime license (one-time purchase)",
+        "Near real-time latency (~1–5s) on live ticks (where available)",
+        "Rich incidents (cards, substitutions, VAR/TO, penalties)",
+        "Odds snapshots (pre-match + key live markets)",
+        "Signed webhooks + replay protection",
+        "24/7 chat support"
+      ],
+      deliverables: [
+        "Enterprise integration pack (OpenAPI, Postman, SDKs)",
+        "Reference widgets (scoreboard, fixtures, standings)",
+        "Caching & scaling best practices"
+      ],
+      rate_limit: { monthly_calls: "unmetered* (fair use)", burst_rps: 12 },
+      notes: ["*Fair use applies; sustained high throughput may require a traffic plan."]
+    }
+  }
+};
+
 
 
 function renderCompliance(platformKey, opts = { inline: false }) {
