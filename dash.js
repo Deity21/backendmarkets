@@ -928,38 +928,49 @@ const pricingPlans = {
     tokens: {
       basic: {
         title: "ESP Token - Basic",
-        price: 250,
+        price: 120,
         features: [
-          "1 ESP module access",
-          "No firmware or updates",
-          "Email help only",
+          "Supported games: Mahjong (Classic/Riichi), Mines, Plinko, Dice",
+          "1 ESP module access (single device)",
+          "No firmware or updates (static build)",
+          "Email help only (24–72h SLA)",
           "Basic Wi-Fi trigger control",
-          "Offline demo supported"
+          "Offline demo supported",
+          "Limited API hooks (read-only telemetry)",
+          "Usage cap: 50K events/month"
         ]
       },
       standard: {
         title: "ESP Token - Standard",
         price: 550,
         features: [
-          "3 modules included",
-          "Monthly firmware updates",
-          "Priority access to firmware devs",
-          "Supports GPIO, SPI, PWM features",
-          "OTA update script access"
+          "Supported games: Mahjong, Poker, Blackjack, Roulette, Mines, Plinko, Crash",
+          "3 modules included (up to 3 devices)",
+          "Monthly firmware updates + stability patches",
+          "Priority access to firmware devs (24–48h SLA)",
+          "GPIO, SPI, PWM, I²C support (prebuilt profiles)",
+          "OTA update script access (secure channel)",
+          "Webhook callbacks + writable API for actions",
+          "Usage cap: 250K events/month, rate-limited"
         ]
       },
       premium: {
         title: "ESP Token - Premium",
         price: 990,
         features: [
-          "All available ESP modules",
-          "Weekly firmware & OTA patches",
-          "VIP hardware access + SDKs",
-          "Dedicated support engineer",
-          "Mobile app integration + OTA monitoring"
+          "Supported games: All Standard games + Baccarat, Teen Patti, Andar Bahar, Sic Bo, Slots, Custom titles",
+          "All available ESP modules (unlimited devices within org)",
+          "Weekly firmware & OTA patches (early access builds)",
+          "VIP hardware access + SDKs & sample projects",
+          "Dedicated support engineer (same-day SLA + chat)",
+          "Mobile app integration + OTA monitoring dashboard",
+          "Advanced analytics: latency, error, usage heatmaps",
+          "No event cap; burst control with adjustable QoS"
         ]
       }
     },
+ 
+
     apis: {
       basic: {
         title: "ESP API - Basic",
