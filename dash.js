@@ -465,7 +465,7 @@ const pricingPlans = {
       },
       standard: {
         title: "Game DB - Standard",
-        price: 790,
+        price: 520,
         features: [
           "Weekly updates",
           "Advanced structure: JSON + CSV + SQL",
