@@ -1378,7 +1378,118 @@ pricingPlans.sportslive = {
   }
 };
 
+// NEW: Game Assets License & Copyright Protection
+pricingPlans.games.assets = {
+  basic: {
+    title: "Game Assets License - Basic",
+    price: 299,
+    billing: "Lifetime",
+    features: [
+      "Commercial usage rights for selected asset packs",
+      "Royalty-free in-game asset usage",
+      "Basic copyright usage certificate",
+      "Includes textures, icons, and UI assets",
+      "Single game/project license",
+      "No resale or redistribution rights",
+      "Email support (72h SLA)",
+      "DMCA protection guidance included"
+    ],
+    deliverables: [
+      "Asset License Certificate (PDF)",
+      "Commercial Usage Terms",
+      "Basic attribution guidelines",
+      "Asset manifest documentation"
+    ],
+    protections: [
+      "Copyright ownership verification",
+      "Asset fingerprint registration",
+      "Basic infringement protection support"
+    ]
+  },
 
+  standard: {
+    title: "Game Assets License - Standard",
+    price: 790,
+    billing: "Lifetime",
+    features: [
+      "Commercial rights for multiple asset categories",
+      "Use in up to 5 commercial games/projects",
+      "Includes 3D models, animations, VFX, SFX, and UI kits",
+      "Modified asset usage permitted",
+      "Multi-platform deployment rights",
+      "Priority copyright dispute assistance",
+      "Priority support (24–48h SLA)",
+      "Includes anti-rip asset watermarking"
+    ],
+    deliverables: [
+      "Extended Commercial License",
+      "Asset ownership verification report",
+      "Modification & derivative-use rights document",
+      "Encrypted asset package delivery"
+    ],
+    protections: [
+      "DMCA dispute assistance",
+      "Asset usage verification system",
+      "Unauthorized redistribution monitoring",
+      "License authenticity verification"
+    ],
+    add_ons: [
+      {
+        name: "Extra Project License Slot",
+        price: 99,
+        unit: "USD"
+      },
+      {
+        name: "Private Asset Hosting",
+        price: 149,
+        unit: "USD/year"
+      }
+    ]
+  },
+
+  premium: {
+    title: "Game Assets License - Premium",
+    price: 1490,
+    billing: "Lifetime",
+    features: [
+      "Unlimited commercial game usage rights",
+      "Full premium asset library access",
+      "Exclusive AAA-quality assets included",
+      "Rights to modify and monetize derivatives",
+      "Studio/team-wide licensing",
+      "Cross-engine compatibility (Unity, Unreal, Godot)",
+      "24/7 legal & copyright assistance",
+      "Advanced anti-leak asset fingerprinting",
+      "NFT/metaverse usage rights included",
+      "Priority access to new asset releases"
+    ],
+    deliverables: [
+      "Enterprise Commercial License Certificate",
+      "Verified ownership & authenticity seal",
+      "Asset compliance documentation",
+      "Studio deployment authorization"
+    ],
+    protections: [
+      "Full DMCA takedown assistance",
+      "Real-time leak monitoring",
+      "Asset piracy investigation support",
+      "Legal verification for marketplaces/platforms",
+      "Enterprise copyright protection coverage"
+    ],
+    add_ons: [
+      {
+        name: "Custom Exclusive Asset Pack",
+        price: 590,
+        unit: "USD"
+      },
+      {
+        name: "White-label Licensing",
+        price: 390,
+        unit: "USD"
+      }
+    ]
+  }
+};
 
 function renderCompliance(platformKey, opts = { inline: false }) {
   const cp = pricingPlans[platformKey]?.compliance;
