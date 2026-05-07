@@ -1382,7 +1382,7 @@ pricingPlans.sportslive = {
 pricingPlans.games.assets = {
   basic: {
     title: "Game Assets License - Basic",
-    price: 299,
+    price: 499,
     billing: "Lifetime",
     features: [
       "Commercial usage rights for selected asset packs",
@@ -1409,7 +1409,7 @@ pricingPlans.games.assets = {
 
   standard: {
     title: "Game Assets License - Standard",
-    price: 790,
+    price: 699,
     billing: "Lifetime",
     features: [
       "Commercial rights for multiple asset categories",
@@ -1766,6 +1766,7 @@ const staticTabs = {
   tokens: document.querySelector('.tab[data-tab="tokens"]'),
   apis: document.querySelector('.tab[data-tab="apis"]'),
   database: document.querySelector('.tab[data-tab="database"]'),
+  assets: document.querySelector('.tab[data-tab="assets"]'),
 };
 
 function setActiveTab(tab) {
@@ -1780,7 +1781,7 @@ function resetToNormalTabs(platformKey) {
   tabsWrap.querySelectorAll('.lc-only').forEach(el => el.remove());
   // Show/hide static tabs depending on platform availability
   const platformObj = pricingPlans[platformKey] || {};
-  ['tokens', 'apis', 'database'].forEach(name => {
+  ['tokens', 'apis', 'database', 'assets'].forEach(name => {
     const btn = staticTabs[name];
     if (!btn) return;
     btn.style.display = platformObj[name] ? '' : 'none';
@@ -1875,11 +1876,13 @@ function loadPlatform(fullPath, event) {
   resetToNormalTabs(platformKey);
 
   const platformObj = pricingPlans[platformKey] || {};
-  const defaultTab = platformObj.tokens ? 'tokens'
-                    : platformObj.apis ? 'apis'
-                    : platformObj.database ? 'database'
-                    : 'tokens';
-
+  const defaultTab =
+    platformObj.tokens ? 'tokens'
+    : platformObj.apis ? 'apis'
+    : platformObj.database ? 'database'
+    : platformObj.assets ? 'assets'
+    : 'tokens';
+  
   switchTab(defaultTab);
 }
 
