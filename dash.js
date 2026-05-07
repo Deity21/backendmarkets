@@ -2,7 +2,7 @@ const subMenus = {
   casino: ["Slots Games", "Crash Games", "Table Games"],
   sportbook: ["Football", "Basketball", "Tennis", "Baseball", "Hockey", "MMA", "Boxing"],
   telegram: ["Tokens", "APIs", "Database"],
-  games: ["Tokens", "APIs", "Database"],
+  games: ["Tokens", "APIs", "Database", "Assets"],
   web3: ["Tokens", "APIs", "Database"],
   trading: ["Tokens", "APIs", "Database"],
   mev: ["Tokens", "APIs", "Database"],
@@ -1655,6 +1655,7 @@ function showSubMenu(platform) {
     "Hockey": "🏒",
     "MMA": "🥋",
     "Boxing": "🥊",
+    "Assets": "🧩",
     "Compliance": "🛡️"
   };
 
@@ -1715,13 +1716,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (assetsBtn) {
     assetsBtn.addEventListener('click', () => {
-      loadPlatform('games');
+      loadPlatform('games-Tokens');
       setTimeout(() => switchTab('assets'), 0);
     });
 
     assetsBtn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        loadPlatform('games');
+        loadPlatform('games-Tokens');
         setTimeout(() => switchTab('assets'), 0);
       }
     });
