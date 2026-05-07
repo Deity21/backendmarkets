@@ -1710,6 +1710,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const assetsBtn = document.getElementById('assetsLicenseBtn');
+
+  if (assetsBtn) {
+    assetsBtn.addEventListener('click', () => {
+      loadPlatform('games');
+      setTimeout(() => switchTab('assets'), 0);
+    });
+
+    assetsBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        loadPlatform('games');
+        setTimeout(() => switchTab('assets'), 0);
+      }
+    });
+  }
+});
+
 function switchTab(tab) {
   // UI: set active tab button
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
